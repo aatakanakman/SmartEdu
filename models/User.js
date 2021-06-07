@@ -21,7 +21,11 @@ const UserSchema = new Schema({
         type: String,
         enum: ["student", "teacher", "admin"],
         default: "student"
-    }
+    },
+    courses : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref  : 'Course'
+    }]
 })
 
 //Veritabanına kaydetmeden önce, şifrenin hashlenmesini istiyoruz. //! bcrypt paketi ile

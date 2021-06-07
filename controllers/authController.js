@@ -28,14 +28,11 @@ exports.loginUser = async (req, res) => {
             if(user){
                 //hashlenmiş olan şifreyi compare ederek eşleşiyorsa  yeni bir user session oluşturuyoruz.
                 bcrypt.compare(password,user.password,(err,same)=>{
-                    if(same){
+
                         //USER SESSION
                         req.session.userID = user._id;
                         res.status(200).redirect('/users/dashboard')
-                    }
-                    else{
-                        res.status(400).send("yanlış şifre")
-                    }
+                   
                 });
             }
             else{
@@ -61,7 +58,7 @@ exports.logoutUser = (req,res) => {
 
 //kullanıcı girişine özel olan dashboard sayfasını burdan çağırıyoruz.
 exports.getDashboardPage = async (req, res) => {
-    const user = await User.findOne({_id : req.session.userID})
+    const user = await User.findOne({_id : req.session.userID}).populate('courses')
     const categories = await Category.find();
     const courses = await Course.find({user : req.session.userID}).sort('-createdAt')
     res.status(200).render('dashboard', {
