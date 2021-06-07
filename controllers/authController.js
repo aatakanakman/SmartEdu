@@ -1,5 +1,7 @@
 const   User              = require('../models/User'),
-        bcrypt            = require('bcrypt')
+        bcrypt            = require('bcrypt'),
+        Category          = require('../models/Category'),
+        Course           = require('../models/Course')
 
 // Kullanıcı oluşturma için fonskiyon. 
 
@@ -60,8 +62,12 @@ exports.logoutUser = (req,res) => {
 //kullanıcı girişine özel olan dashboard sayfasını burdan çağırıyoruz.
 exports.getDashboardPage = async (req, res) => {
     const user = await User.findOne({_id : req.session.userID})
+    const categories = await Category.find();
+    const courses = await Course.find({user : req.session.userID}).sort('-createdAt')
     res.status(200).render('dashboard', {
         page_name: 'dashboard',
-        user
+        user,
+        categories,
+        courses
     })
 }
