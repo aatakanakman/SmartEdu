@@ -6,6 +6,7 @@ const   express = require('express'),
         courseRoute = require('./routes/courseRoute'),
         categoryRoute = require('./routes/categoryRoute'),
         userRoute = require('./routes/userRoute')
+        flash = require('connect-flash');
 
 const app = express();
 
@@ -47,6 +48,11 @@ app.use(session({
         mongoUrl: 'mongodb+srv://atakan:atakan123@smartedu.swhav.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
     })
 }))
+app.use(flash());
+app.use((req,res,next) => {
+    res.locals.flashMessages = req.flash();
+    next();
+})
 
 
 //Routes
