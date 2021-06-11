@@ -5,8 +5,9 @@ const   express = require('express'),
         pageRoute = require('./routes/pageRoute'),
         courseRoute = require('./routes/courseRoute'),
         categoryRoute = require('./routes/categoryRoute'),
-        userRoute = require('./routes/userRoute')
-        flash = require('connect-flash');
+        userRoute = require('./routes/userRoute'),
+        flash = require('connect-flash'),
+        methodOverride = require('method-override')
 
 const app = express();
 
@@ -53,6 +54,10 @@ app.use((req,res,next) => {
     res.locals.flashMessages = req.flash();
     next();
 })
+
+app.use(methodOverride('_method', {
+    methods : ['POST','GET']
+}));
 
 
 //Routes

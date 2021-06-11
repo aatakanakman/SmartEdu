@@ -37,7 +37,7 @@
 											<h2><a href="/courses/<%=user.courses[i].slug%>" title=""><%=user.courses[i].name%></a></h2>
 										</div>
 										<div class="blog-desc">
-											<p><%=user.courses[i].description%> </p>
+											<p><%=user.courses[i].description.substring(0,250)%> </p>
 											<form method="POST" action="/courses/release">
 												<input type="hidden" name="course_id" value="<%=user.courses[i]._id%>"><!--Course id yi gönderiyoruz.-->
 												<button class="btn btn-lg btn-danger text-white"><span>RELEASE</span></button>
@@ -97,7 +97,15 @@
 													<h2><a href="/courses/<%=courses[i].slug%>" title=""><%=courses[i].name %></a></h2>
 												</div>
 												<div class="course-desc">
-													<p><%=courses[i].description %></p>
+													<p><%=courses[i].description.substring(0,250) %></p>
+												</div>
+												<div class="clearfix">
+													<ul style="list-style-type: none;">
+														<li style="float: left;"><button class="btn btn-primary rounded-0 text-white"><span>Update</span></button></li>
+														<li style="float: right;"><a href="/courses/<%= courses[i].slug %>?_method=DELETE"
+															onclick="return confirm('ARE YOU SURE')"
+															class="btn btn-danger rounded-0 text-white"><span>Delete</span></a></li>
+													</ul>
 												</div>
 											</div>
 										</div>
