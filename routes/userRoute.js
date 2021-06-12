@@ -28,6 +28,8 @@ router.route('/signup').post([
 router.route('/login').post(authController.loginUser); //users/signup
 router.route('/logout').get(authController.logoutUser); //users/signup
 router.route('/dashboard').get(authMiddleware, authController.getDashboardPage); //users/signup
+router.route('/:id').delete(authController.deleteUser); //users/:id
+
 
 
 
